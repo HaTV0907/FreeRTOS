@@ -1,0 +1,27 @@
+--cpu=Cortex-M4.fp
+"repo\startup_stm32f407xx.o"
+"repo\main.o"
+"repo\gpio.o"
+"repo\stm32f4xx_it.o"
+"repo\stm32f4xx_hal_msp.o"
+"repo\stm_my_lcd16x2.o"
+"repo\stm32f4xx_hal_tim.o"
+"repo\stm32f4xx_hal_tim_ex.o"
+"repo\stm32f4xx_hal_rcc.o"
+"repo\stm32f4xx_hal_rcc_ex.o"
+"repo\stm32f4xx_hal_flash.o"
+"repo\stm32f4xx_hal_flash_ex.o"
+"repo\stm32f4xx_hal_flash_ramfunc.o"
+"repo\stm32f4xx_hal_gpio.o"
+"repo\stm32f4xx_hal_dma_ex.o"
+"repo\stm32f4xx_hal_dma.o"
+"repo\stm32f4xx_hal_pwr.o"
+"repo\stm32f4xx_hal_pwr_ex.o"
+"repo\stm32f4xx_hal_cortex.o"
+"repo\stm32f4xx_hal.o"
+"repo\stm32f4xx_hal_exti.o"
+"repo\system_stm32f4xx.o"
+--library_type=microlib --strict --scatter "Repo\Repo.sct"
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "Repo.map" -o Repo\Repo.axf
