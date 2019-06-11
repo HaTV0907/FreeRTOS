@@ -60,12 +60,19 @@ void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN 0 */
 void LCD_Display(void)
 {
-    LCD1602_Begin4BIT(EN_GPIO_Port, RS_Pin, EN_Pin, D4_GPIO_Port, D4_Pin, D5_Pin, D6_Pin, D7_Pin);
-    LCD1602_print("hello-world!");
-    vTaskDelay(1000);
-    LCD1602_2ndLine();
-    LCD1602_print("Ha Tran Van");
-    vTaskDelay(1000);
+    for(;;)
+    {
+        LCD1602_Begin4BIT(EN_GPIO_Port, RS_Pin, EN_Pin, D4_GPIO_Port, D4_Pin, D5_Pin, D6_Pin, D7_Pin);
+        LCD1602_print("hello-world!");
+        vTaskDelay(1000);
+        LCD1602_2ndLine();
+        LCD1602_print("Ha Tran Van");
+        vTaskDelay(1000);
+        LCD1602_clear();
+        vTaskDelay(1000);
+    }
+    /* Delete task */
+    vTaskDelete(NULL);
 }
 /* USER CODE END 0 */
 
