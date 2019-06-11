@@ -71,7 +71,7 @@ void Error_Handler(void);
 #define EN_Pin GPIO_PIN_1
 #define EN_GPIO_Port GPIOE
 /* USER CODE BEGIN Private defines */
-
+#define configTaskPriorityBase 1
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

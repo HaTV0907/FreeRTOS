@@ -20,6 +20,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "cmsis_os.h"
 #include "gpio.h"
 #include "STM_MY_LCD16X2.h"
 /* Private includes ----------------------------------------------------------*/
@@ -50,13 +51,22 @@
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
+void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+void LCD_Display(void)
+{
+    LCD1602_Begin4BIT(EN_GPIO_Port, RS_Pin, EN_Pin, D4_GPIO_Port, D4_Pin, D5_Pin, D6_Pin, D7_Pin);
+    LCD1602_print("hello-world!");
+    vTaskDelay(1000);
+    LCD1602_2ndLine();
+    LCD1602_print("Ha Tran Van");
+    vTaskDelay(1000);
+}
 /* USER CODE END 0 */
 
 /**
@@ -88,22 +98,21 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-
+  /* LCD display task */
+  xTaskCreate((TaskFunction_t)LCD_Display, (const char*)"LCD display", configMINIMAL_STACK_SIZE, NULL, configTaskPriorityBase, NULL);
   /* USER CODE END 2 */
+  /* Call init function for freertos objects (in freertos.c) */
+  MX_FREERTOS_Init();
 
+  /* Start scheduler */
+  osKernelStart();
+  
+  /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
     /* USER CODE END WHILE */
-      LCD1602_Begin4BIT(EN_GPIO_Port, RS_Pin, EN_Pin, D4_GPIO_Port, D4_Pin, D5_Pin, D6_Pin, D7_Pin);
-      LCD1602_print("hello-world!");
-      HAL_Delay(1000);
-      LCD1602_2ndLine();
-      LCD1602_print("Ha Tran Van");
-      HAL_Delay(1000);
-      LCD1602_clear();
-      HAL_Delay(1000);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -183,6 +192,7 @@ void assert_failed(uint8_t *file, uint32_t line)
      tex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
   /* USER CODE END 6 */
 }
+
 #endif /* USE_FULL_ASSERT */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
